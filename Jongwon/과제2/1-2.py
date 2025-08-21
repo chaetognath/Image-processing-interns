@@ -2,12 +2,10 @@ import skimage.io as io
 import numpy as np
 import matplotlib.pyplot as plt
 
-im = plt.imread('images/x_ray2.png')
-
 arr = np.arange(256)
 
 lut1 = np.uint8(np.clip(arr*2, 0, 255))
-lut2 = np.uint8(np.arange(256)/2)
+lut2 = np.uint8(np.arange(256)*0.5)
 lut3 = np.uint8(-np.arange(256)+255)
 
 t1 = np.arange(97)*(32/96)
