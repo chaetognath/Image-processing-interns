@@ -44,7 +44,7 @@ cdf_desired = cdf_desired.reshape(1,256)
 
 
 
-
+'''
 print(cdf_desired.shape)
 print(cdf_input.shape)
 
@@ -55,7 +55,7 @@ plt.subplot(1,2,2)
 plt.title('Custom CDF')
 plt.plot(cdf_desired[0], label='Desired CDF')
 plt.show()
-
+'''
 
 
 
@@ -83,16 +83,30 @@ print(x_ray_HS)
 
 
 
-plt.figure(figsize=(13, 6))
-plt.subplot(1,3,1)
-plt.title('Original Image')
-plt.imshow(np.uint8(x_ray2*255), cmap='grey', vmin=0, vmax=255)
-plt.subplot(1,3,2)
+plt.figure(figsize=(12, 8))
+plt.subplot(3,2,1)
 plt.title('Histogram Equalized Image')
 plt.imshow(x_ray_HE, cmap='grey')
-plt.subplot(1,3,3)
+plt.subplot(3,2,3)
+plt.title('Histogram of Equalized Image')
+plt.hist(x_ray_HE.ravel()*255, bins=256)
+plt.subplot(3,2,5)
+plt.title('Cumulative Distribution Function')
+plt.plot(bin_centers, cdf_values, color='blue')
+plt.subplot(3,2,2)
 plt.title('Specialized Image with custom LUT')
 plt.imshow(np.uint8(x_ray_HS*255), cmap='grey', vmin=0, vmax=255)
+plt.subplot(3,2,4)
+plt.title('Histogram of Specialized Image')
+plt.hist(x_ray_HS.ravel()*255, bins=256)
+plt.subplot(3,2,6)
+plt.title('Cumulative Distribution Function of Specialized Image')
+cdf_x_ray_HS, bin_centers_HS = ex.cumulative_distribution(x_ray_HS)
+plt.plot(bin_centers_HS, cdf_x_ray_HS, color='red')
+plt.tight_layout()
+plt.subplots_adjust(top=0.88)
+plt.suptitle('Histogram Equalization and Custom LUT Application', fontsize=16)
+
 
 plt.show()
 
