@@ -66,7 +66,16 @@ plt.show()
 # Create empty list of size 256
 LUT = np.zeros(256, dtype=np.uint8)
 
-# Map the input histogram to the desired histogram
+
+input = np.uint8(cdf_input[0]*255)
+desired = np.uint8(cdf_desired[0]*255)
+
+
+print(input)
+print(desired)
+
+
+# Create a lookup table (LUT) to map the input histogram to the desired histogram
 for i in range(256):
     j = np.argmin(np.abs(cdf_input[0, i] - cdf_desired))
     LUT[i] = j
