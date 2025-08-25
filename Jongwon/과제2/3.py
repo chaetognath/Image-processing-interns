@@ -66,7 +66,6 @@ LUT = np.zeros(256, dtype=np.uint8)
 input = np.uint8(cdf_input[0]*255)
 desired = np.uint8(cdf_desired[0]*255)
 
-
 print(input)
 print(desired)
 
