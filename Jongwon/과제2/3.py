@@ -44,7 +44,7 @@ cdf_desired = cdf_desired.reshape(1,256)
 
 
 
-'''
+
 print(cdf_desired.shape)
 print(cdf_input.shape)
 
@@ -55,7 +55,7 @@ plt.subplot(1,2,2)
 plt.title('Custom CDF')
 plt.plot(cdf_desired[0], label='Desired CDF')
 plt.show()
-'''
+
 
 
 
