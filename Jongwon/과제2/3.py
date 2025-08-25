@@ -49,7 +49,7 @@ cdf_input, cdf_bins = ex.cumulative_distribution(x_ray2) # Makes tuple of (cdf, 
 cdf_input = cdf_input.reshape(1, 256) # Ensure cdf_input is a 2D array
 '''
 
-'''
+
 print(cdf_desired.shape)
 print(cdf_input.shape)
 
@@ -60,7 +60,7 @@ plt.subplot(1,2,2)
 plt.title('Custom CDF')
 plt.plot(cdf_desired[0], label='Desired CDF')
 plt.show()
-'''
+
 
 
 # Create empty list of size 256
