@@ -3,8 +3,6 @@ import matplotlib.pyplot as plt
 import skimage.exposure as ex
 
 x_ray2 = plt.imread('images/x_ray2.png')
-print(x_ray2)
-print(x_ray2.shape) # (214, 300)
 
 x_ray_HE = ex.equalize_hist(x_ray2)
 cdf_values, bin_centers = ex.cumulative_distribution(x_ray_HE)
@@ -33,16 +31,23 @@ hist_desired = np.exp(-((u - 128)**2) / (2 * 60**2))
 hist_desired = hist_desired / hist_desired.sum()
 hist_desired = hist_desired.reshape(1, 256)
 
-hist_x_ray2, desired_bins = ex.histogram(x_ray2)
-hist_x_ray2 = np.float64(hist_x_ray2 / hist_x_ray2.sum())
+# Compute the cumulative distribution function (CDF) from the desired histogram
+cdf_desired = hist_desired.cumsum() # Compute the cumulative sum to get the CDF
+cdf_desired = cdf_desired.reshape(1,256) # Ensure cdf_desired is a 2D array
 
-cdf_input, cdf_bins = ex.cumulative_distribution(x_ray2)
+# Compute the histogram of the input image
+hist_x_ray2, desired_bins = ex.histogram(x_ray2) # Makes tuple of (hist, bins)
+hist_x_ray2 = np.float64(hist_x_ray2 / hist_x_ray2.sum()) # Normalize the histogram
+
+# Compute the cumulative distribution function (CDF) from the input histogram
+cdf_input = hist_x_ray2.cumsum() # Compute the cumulative sum to get the CDF
+cdf_input = cdf_input.reshape(1,256) # Ensure cdf_input is a 2D array
+
+'''
+# Compute the CDF of the input image
+cdf_input, cdf_bins = ex.cumulative_distribution(x_ray2) # Makes tuple of (cdf, bins)
 cdf_input = cdf_input.reshape(1, 256) # Ensure cdf_input is a 2D array
-
-cdf_desired = hist_desired.cumsum()
-cdf_desired = cdf_desired.reshape(1,256)
-
-
+'''
 
 '''
 print(cdf_desired.shape)
@@ -58,34 +63,24 @@ plt.show()
 '''
 
 
-
-# Create emety list of size 256
+# Create empty list of size 256
 LUT = np.zeros(256, dtype=np.uint8)
 
-
-input = np.uint8(cdf_input[0]*255)
-desired = np.uint8(cdf_desired[0]*255)
-
-
-print(input)
-print(desired)
-
-
-# Create a lookup table (LUT) to map the input histogram to the desired histogram
+# Map the input histogram to the desired histogram
 for i in range(256):
     j = np.argmin(np.abs(cdf_input[0, i] - cdf_desired))
     LUT[i] = j
 
-print(LUT)
 
+# Apply the LUT to the input image
 x_ray_HS = LUT[np.uint(x_ray2*255)]
-print(x_ray_HS)
 
 
-
+# Visualization
 plt.figure(figsize=(12, 8))
 plt.subplot(3,2,1)
 plt.title('Histogram Equalized Image')
+plt.axis('off')
 plt.imshow(x_ray_HE, cmap='grey')
 plt.subplot(3,2,3)
 plt.title('Histogram of Equalized Image')
@@ -95,6 +90,7 @@ plt.title('Cumulative Distribution Function')
 plt.plot(bin_centers, cdf_values, color='blue')
 plt.subplot(3,2,2)
 plt.title('Specialized Image with custom LUT')
+plt.axis('off')
 plt.imshow(np.uint8(x_ray_HS*255), cmap='grey', vmin=0, vmax=255)
 plt.subplot(3,2,4)
 plt.title('Histogram of Specialized Image')
@@ -107,6 +103,4 @@ plt.tight_layout()
 plt.subplots_adjust(top=0.88)
 plt.suptitle('Histogram Equalization and Custom LUT Application', fontsize=16)
 
-
 plt.show()
-
