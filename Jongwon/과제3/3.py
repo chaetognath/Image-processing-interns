@@ -90,4 +90,3 @@ plot_filter(ax4, sobel_vertical, 'd) 3x3 Sobel Filter (Vertical)')
 
 plt.tight_layout()
 plt.show()
-
