@@ -37,7 +37,7 @@ sobel_image = ndi.convolve(image, sobel_vertical)
 transposed_prewitt_image = ndi.convolve(image, prewitt_transposed)
 transposed_sobel_image = ndi.convolve(image, sobel_transposed)
 
-'''
+
 # Display images and profiles
 plt.figure(figsize = (12,6))
 plt.subplot(2,3,1)
@@ -74,7 +74,7 @@ plt.subplot(2,2,4)
 plt.plot(VerticalCenterProfile(transposed_sobel_image))
 
 plt.show()
-'''
+
 
 # Show omni-directional edge detection
 omni_prewitt = np.abs(prewitt_image) + np.abs(transposed_prewitt_image)
