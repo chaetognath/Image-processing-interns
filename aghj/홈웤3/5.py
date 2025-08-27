@@ -22,10 +22,12 @@ laplacian_mask2d = np.array([
 applied_laplacian = ndi.convolve(i, laplacian_mask2d, mode='constant')
 sharpppp = applied_laplacian + i
 
-plt.figure()
-plt.imshow(applied_laplacian, cmap='gray')
-plt.show()
+plt.subplot(1,3,1)
+plt.imshow(i, cmap='gray')
 
-plt.figure()
+plt.subplot(1,3,2)
+plt.imshow(applied_laplacian, cmap='gray')
+
+plt.subplot(1,3,3)
 plt.imshow(sharpppp, cmap='gray')
 plt.show()
