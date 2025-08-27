@@ -13,7 +13,7 @@ laplacian_filter = np.array([
     [0, -1, 0]
 ])
 
-laplacian_image = ndi.convolve(image, laplacian_filter, mode='reflect') # type = float64
+laplacian_image = ndi.convolve(image, laplacian_filter, mode='constant') # type = float64
 
 sharper_image = smoothed_image + laplacian_image
 
