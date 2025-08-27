@@ -44,17 +44,20 @@ prewitt_filter = np.array([
             [-1,  0,  1]
         ], dtype=np.float32)
 
+
 prewitt_filter_horizontal = np.array([
             [-1, -1, -1],
             [ 0,  0,  0],
             [ 1,  1,  1]
         ], dtype=np.float32)
 
+
 sobel_filter = np.array([
             [-1,  0,  1],
             [-2,  0,  2],
             [-1,  0,  1]
         ], dtype=np.float32)
+
 
 sobel_filter_horizontal = np.array([
             [-1, -1, -1],
