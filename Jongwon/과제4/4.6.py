@@ -7,7 +7,7 @@ import skimage.io as io
 image = io.imread('images/img.jpg')
 affined_image = io.imread('images/affined_img.bmp')
 
-tf_matrix = tf.AffineTransform(shear=(np.deg2rad(-30), np.deg2rad(3.5)), translation=(-175, 0))
+tf_matrix = tf.AffineTransform(shear=(np.deg2rad(-30), np.deg2rad(3.5)), translation=(-175, 0), scale=(1, 0.8))
 
 altered_image = tf.warp(affined_image, tf_matrix, order = 3, preserve_range=True)
 
