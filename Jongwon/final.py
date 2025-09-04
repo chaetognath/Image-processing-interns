@@ -46,8 +46,7 @@ dilated = morph.binary_dilation(lung_mask, footprint = B_sq, mode = 'min').astyp
 eroded = morph.binary_erosion(lung_mask, footprint = B_sq, mode = 'min').astype(np.uint8) * 255
 edge_image = dilated - eroded
 
-# Convert the original grayscale image to an RGB image so we can add color
-# We'll normalize it to 0-1 range for proper display with matplotlib
+
 image_rgb = plt.cm.gray(image)[:, :, :3] # Take only RGB channels, discard alpha if present
 
 # Overlay the red edges
@@ -57,7 +56,6 @@ image_with_edges = image_rgb.copy()
 image_with_edges[edge_image == 255, 0] = 1.0  # Set Red channel to max
 image_with_edges[edge_image == 255, 1] = 0.0  # Set Green channel to min
 image_with_edges[edge_image == 255, 2] = 0.0  # Set Blue channel to min
-
 
 
 
